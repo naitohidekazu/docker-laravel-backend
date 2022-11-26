@@ -53,14 +53,26 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['app','error'],
             'ignore_exceptions' => false,
         ],
 
-        'single' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
+        // ログ
+        'app' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/app.log'),
+            'level' => 'debug','info',
+            'days' => 7,
+            'permission' => 0664,
+        ],
+
+        // エラーログ
+        'error' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/error.log'),
+            'level' => 'error',
+            'days' => 7,
+            'permission' => 0664,
         ],
 
         'daily' => [
